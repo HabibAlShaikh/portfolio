@@ -9,23 +9,23 @@
 </head>
 <body>
     <div>
-        <span>Habib Al-Shaikh: ~$</span>
+        <p class="my-name">Habib Al-Shaikh: ~$</p>
         <nav><a href="">[work]</a><a href="">[about]</a></nav>
-        <span>$ whoami</span>
-        <span>CS student. Embedded systems, SCADA, C++</span>
+        <p class="commands">$ whoami</p>
+        <p class="small-about">CS student. Embedded systems, SCADA, C++</p>
 
-        <span>$ ls ./projects</span>
-        <span>canbus-dashboard/    log-analyzer/    ghos/    ...</span>
+        <p class="commands">$ ls ./projects</p>
+        <p class="commands">canbus-dashboard/    log-analyzer/    ghos/    ...</p>
     </div>
 
     <div id="projects-container">
         <template id="projects">
-            <div>
+            <div class="project">
                 <h3 class="project-name"></h3>
-				<span class="group-project"></span>
+				<p class="group-project"></p>
                 <p class="project-description"></p>
                 <div class="project-skills"></div>
-				<a class="project-link">[See-code]</a>
+				<a class="project-link">[see-code]</a>
             </div>
         </template>
     </div>
