@@ -68,11 +68,42 @@ h1, h2, h3, h4, h5, h6 {
   isolation: isolate;
 }
 
+::selection {
+    background-color: var(--accent); /* Highlights text in your green accent */
+    color: var(--bg);                /* Changes the text color to the off-white background */
+}
+
+/* For Firefox compatibility */
+::-moz-selection {
+    background-color: var(--accent);
+    color: var(--bg);
+}
+
+.dashed-divider {
+    border: none;
+    border-top: 1px dashed var(--ink-faint);
+    margin: 2rem auto;
+    max-width: 800px; /* Matches your projects-container width */
+}
+
 .my-name {
   color: var(--ink);
   font-size: 14px;
-  font-weight: bold;
+  font-weight: 500;
   letter-spacing: 0.02em;
+}
+
+/* Adds the block cursor after your name */
+.my-name::after {
+    content: " █"; /* You can change this to "_" if you prefer an underscore */
+    animation: blink 1.2s step-end infinite;
+    opacity: 0.8;
+}
+
+/* The animation logic */
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
 }
 
 .commands {
@@ -88,19 +119,59 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 18px;
 }
 
+.nav-links {
+  color: var(--accent);
+  font-size: 14px;
 
+  transition: opacity 0.2s ease-in-out;
+}
+.nav-links:hover {
+  opacity: 0.7;
+}
+.nav-links:visited {
+  opacity: 0.5;
+}
+
+.top-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+nav {
+    display: flex;
+    gap: 1rem; /* Adds space between your [work] and [about] links */
+}
 
 #projects-container {
   /* margin: 0.8rem; */
   padding: 1rem;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .project {
-  background-color: var(--bg-raised);
+  background-color: transparent;
   margin: 0.5rem;
   padding: 1rem;
   border: 1px dashed var(--ink-faint);
-  border-radius: 3px;
+  border-radius: 0.3rem;
+
+  transition: background-color 0.3s ease-in-out;
+}
+
+.project:hover {
+  background-color: var(--bg-raised);
+}
+
+.project-top-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
 .project-name {
@@ -108,9 +179,16 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 16px;
 }
 
+.group-project {
+  color: var(--ink-muted);
+  font-size: 12px;
+}
+
 .project-description {
   color: var(--ink-muted);
   font-size: 14px;
+  text-align: justify;
+  hyphens: auto;
 }
 
 .project-skills {
@@ -118,18 +196,37 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 14px;
   display: flex;
   flex-wrap: wrap;
-  gap: 14px;
+  gap: 8px;
   margin-top: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .project-skills span {
+  font-size: 12px;
   border: 1px dashed var(--ink-faint);
   border-radius: 0.3rem;
   padding: 0.2rem 0.5rem;
+  opacity: 0.75;
 }
 
 .project-link {
+  color: var(--accent);
+  font-size: 14px;
 
+  transition: opacity 0.2s ease-in-out;
+}
+.project-link:hover {
+  opacity: 0.7;
+}
+.project-link:visited {
+  opacity: 0.5;
 }
 
-/* push test */
+.nav-links:hover, 
+.nav-links:focus, 
+.project-link:hover, 
+.project-link:focus {
+    opacity: 0.7;
+    outline: none; /* Removes the default browser outline */
+    border-bottom: 1px dashed var(--accent); /* Adds a thematic underline when focused/hovered */
+}

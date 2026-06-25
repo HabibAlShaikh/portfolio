@@ -7,10 +7,18 @@
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-    <div>
+
+    <header class="top-bar">
         <p class="my-name">Habib Al-Shaikh: ~$</p>
-        <nav><a href="">[work]</a><a href="">[about]</a></nav>
+        <nav>
+            <a class="nav-links" href="">[work]</a>
+            <a class="nav-links" href="">[about]</a>
+        </nav>
+    </header>
+
+    <div>
         <p class="commands">$ whoami</p>
         <p class="small-about">CS student. Embedded systems, SCADA, C++</p>
 
@@ -18,11 +26,15 @@
         <p class="commands">canbus-dashboard/    log-analyzer/    ghos/    ...</p>
     </div>
 
+    <hr class="dashed-divider">
+
     <div id="projects-container">
         <template id="projects">
             <div class="project">
-                <h3 class="project-name"></h3>
-				<p class="group-project"></p>
+                <div class="project-top-bar">
+                    <h3 class="project-name"></h3>
+				    <p class="group-project"></p>
+                </div>
                 <p class="project-description"></p>
                 <div class="project-skills"></div>
 				<a class="project-link">[see-code]</a>
@@ -51,7 +63,7 @@
                 "description": "ESP32 firmware that connects to an ELM327 WiFi OBD-II adapter and logs real-time vehicle data to a CSV file on an SD card.",
                 "link": "https://github.com/HabibAlShaikh/ESP32-ELM327-WiFi-Logger",
                 "is-group-project": false,
-                "skills": ["C/C++", "Github", "TCP/IP", "ESP32", "IoT"]
+                "skills": ["C/C++", "Github", "TCP/IP", "ESP32", "Embedded Systems","IoT"]
             }
         ];
 
