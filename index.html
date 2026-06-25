@@ -4,65 +4,85 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <div>
+        <span>Habib Al-Shaikh: ~$</span>
+        <nav><a href="">[work]</a><a href="">[about]</a></nav>
+        <span>$ whoami</span>
+        <span>CS student. Embedded systems, SCADA, C++</span>
 
-    <header>
-        <nav>
-            <a href="#about">About</a>
-            <a href="#projects">Projects</a>
-            <a href="#contact">Contact</a>
-        </nav>
-    </header>
+        <span>$ ls ./projects</span>
+        <span>canbus-dashboard/    log-analyzer/    ghos/    ...</span>
+    </div>
 
-    <main>
-        <!-- About Section -->
-        <section id="about">
-            <h1>Hi, I'm a Systems & Software Developer</h1>
-            <p>I focus on low-level programming, Linux environments, and systems engineering. Currently studying Computer Science and building tools in C++.</p>
-        </section>
+    <div id="projects-container">
+        <template id="projects">
+            <div>
+                <h3 class="project-name"></h3>
+				<span class="group-project"></span>
+                <p class="project-description"></p>
+                <div class="project-skills"></div>
+				<a class="project-link">[See-code]</a>
+            </div>
+        </template>
+    </div>
 
-        <!-- Projects Section -->
-        <section id="projects">
-            <h2>Featured Projects</h2>
+    <script>
+        const projects = [
+            {
+                "name": "CLI_Log_Analyzer",
+                "description": "A CLI tool that parses and filters Linux log files.",
+                "link": "https://github.com/HabibAlShaikh/CLI_Log_Analyzer",
+                "is-group-project": false,
+                "skills": ["C/C++", "GitHub", "OS", "Linux"]
+            },
+            {
+                "name": "ghos",
+                "description": "GHOS is a modern, secure, and feature-rich e-commerce platform dedicated to digital game keys. Built with a focus on security and user experience, it provides a seamless flow from game discovery to secure checkout.",
+                "link": "https://github.com/mkm72/ghos",
+                "is-group-project": true,
+                "skills": ["HTML/CSS", "php", "JavaScript", "SQL", "GitHub"]
+            },
+            {
+                "name": "ESP32-ELM327-WiFi-Logger",
+                "description": "ESP32 firmware that connects to an ELM327 WiFi OBD-II adapter and logs real-time vehicle data to a CSV file on an SD card.",
+                "link": "https://github.com/HabibAlShaikh/ESP32-ELM327-WiFi-Logger",
+                "is-group-project": false,
+                "skills": ["C/C++", "Github", "TCP/IP", "ESP32", "IoT"]
+            }
+        ];
+
+        const template = document.getElementById("projects");
+        const container = document.getElementById("projects-container");
+
+        for (let i = 0; i < projects.length; i++) {
+            const project = projects[i];
             
-            <div class="project-card">
-                <h3>CLI Log Analyzer</h3>
-                <p>A high-performance command-line utility built in C++ designed to parse, filter, and extract insights from Linux service records line-by-line.</p>
-                <div class="tags"><span>C++</span> <span>Linux</span> <span>CLI</span></div>
-                <a href="https://github.com/yourusername/log-analyzer" target="_blank">View Code</a>
-            </div>
+            const clone = template.content.cloneNode(true);
 
-            <div class="project-card">
-                <h3></h3>
-                <p></p>
-                <div class="tags"><span>C++</span> <span>DSP</span> <span>Embedded</span></div>
-            </div>
+            const nameElement = clone.querySelector(".project-name");
+			nameElement.textContent = project.name;
 
-            <div class="project-card">
-                <h3></h3>
-                <p></p>
-                <div class="tags"><span>Linux</span> <span>Sway</span> <span>Bash</span></div>
-                <a href="https://github.com/yourusername/dotfiles" target="_blank">View Environment</a>
-            </div>
-        </section>
+			const groupProject = clone.querySelector(".group-project");
+            if (project["is-group-project"]) {
+                groupProject.textContent = "[group-project]";
+            }
 
-        <!-- Contact Section -->
-        <section id="contact">
-            <h2>Get In Touch</h2>
-            <p>Feel free to reach out for collaborations or opportunities.</p>
-            <div class="links">
-                <a href="mailto:your.email@example.com">Email</a>
-                <a href="https://github.com/yourusername" target="_blank">GitHub</a>
-                <a href="https://linkedin.com/in/yourusername" target="_blank">LinkedIn</a>
-            </div>
-        </section>
-    </main>
+            clone.querySelector(".project-description").textContent = project.description;
+            clone.querySelector(".project-link").setAttribute("href", project.link);
 
-    <footer>
-        <p>&copy; 2026. Built with raw HTML and CSS.</p>
-    </footer>
+            const skillsContainer = clone.querySelector(".project-skills");
+            for (let j = 0; j < project.skills.length; j++) {
+                const skillSpan = document.createElement("span");
+                skillSpan.textContent = project.skills[j];
+                skillsContainer.appendChild(skillSpan);
+            }
 
+            container.appendChild(clone);
+        }
+    </script>
 </body>
 </html>

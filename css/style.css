@@ -1,83 +1,14 @@
+* {
+  font-family: 'IBM Plex Mono', monospace;
+  box-sizing: border-box;
+}
+
+/* colors */
 :root {
-    --bg-color: #0f172a;
-    --card-bg: #1e293b;
-    --text-main: #f8fafc;
-    --text-muted: #94a3b8;
-    --accent: #38bdf8;
-    --max-width: 800px;
-}
-
-body {
-    background-color: var(--bg-color);
-    color: var(--text-main);
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
-}
-
-header {
-    max-width: var(--max-width);
-    margin: 0 auto;
-    padding: 2rem 1rem;
-}
-
-nav a {
-    color: var(--text-muted);
-    text-decoration: none;
-    margin-right: 1.5rem;
-    font-weight: 500;
-}
-
-nav a:hover {
-    color: var(--accent);
-}
-
-main {
-    max-width: var(--max-width);
-    margin: 0 auto;
-    padding: 0 1rem 4rem 1rem;
-}
-
-section {
-    padding: 3rem 0;
-}
-
-h1, h2, h3 {
-    color: var(--text-main);
-}
-
-p {
-    color: var(--text-muted);
-}
-
-/* Project Cards Layout */
-#projects {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.project-card {
-    background-color: var(--card-bg);
-    padding: 1.5rem;
-    border-radius: 8px;
-    border: 1px solid #334155;
-}
-
-.tags span {
-    background: #334155;
-    color: var(--accent);
-    padding: 0.2rem 0.6rem;
-    border-radius: 4px;
-    font-size: 0.85rem;
-    margin-right: 0.5rem;
-    display: inline-block;
-}
-
-.project-card a {
-    display: inline-block;
-    margin-top: 1rem;
-    color: var(--accent);
-    text-decoration: none;
+  --bg:        #F7F4EE;
+  --bg-raised: #EDE9E0;
+  --ink:       #2A2825;
+  --ink-muted: #7A6F60;
+  --ink-faint: rgba(42, 40, 37, 0.25);
+  --accent:    #3D6B4F;
 }

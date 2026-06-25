@@ -1,0 +1,79 @@
+
+<style>
+  .ref-wrap { padding: 1rem 0; display: flex; flex-direction: column; gap: 2rem; }
+  .dir-card { border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); overflow: hidden; }
+  .dir-preview { padding: 1.5rem; }
+  .dir-meta { padding: 1rem 1.25rem; border-top: 0.5px solid var(--color-border-tertiary); background: var(--color-background-secondary); }
+  .dir-label { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-tertiary); margin-bottom: 0.5rem; }
+  .dir-name { font-size: 15px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 0.25rem; }
+  .dir-desc { font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; }
+  .swatches { display: flex; gap: 6px; margin: 0.75rem 0 0.5rem; }
+  .swatch { width: 28px; height: 28px; border-radius: 50%; border: 0.5px solid var(--color-border-tertiary); }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 0.75rem; }
+  .tag { font-size: 12px; padding: 3px 10px; border-radius: 99px; border: 0.5px solid var(--color-border-secondary); color: var(--color-text-secondary); }
+  .links-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 0.75rem; }
+  .reflink { font-size: 12px; color: var(--color-text-info); text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
+  .reflink:hover { text-decoration: underline; }
+  .mini-hero { border-radius: 8px; padding: 1.25rem 1.5rem; }
+  .mini-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; }
+  .mini-logo { font-size: 13px; font-weight: 500; }
+  .mini-navlinks { display: flex; gap: 16px; font-size: 11px; opacity: 0.6; }
+  .mini-h1 { font-size: 22px; font-weight: 400; margin: 0 0 0.4rem; }
+  .mini-sub { font-size: 12px; opacity: 0.6; }
+  .mini-divider { height: 0.5px; background: currentColor; opacity: 0.15; margin: 1rem 0; }
+  .mini-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .mini-block { height: 32px; border-radius: 4px; opacity: 0.12; background: currentColor; }
+  .section-header { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.45; margin-bottom: 0.5rem; }
+</style>
+
+<div class="ref-wrap">
+  <h2 class="sr-only">Portfolio design reference directions: three visual aesthetic options for a minimal vintage CS portfolio</h2>
+
+  <!-- Direction 3: Typewriter Terminal -->
+  <div class="dir-card">
+    <div class="dir-preview mini-hero" style="background: #F7F4EE; color: #2A2825; font-family: 'Courier New', Courier, monospace;">
+      <div class="mini-nav">
+        <span class="mini-logo" style="font-family: 'Courier New', monospace; font-size: 12px; letter-spacing: 0.02em;">habib@al-khobar:~$</span>
+        <span class="mini-navlinks" style="font-family: 'Courier New', monospace; font-size: 10px;">
+          <span>[work]</span><span>[about]</span>
+        </span>
+      </div>
+      <div style="margin-top: 1rem;">
+        <div style="font-size: 11px; opacity: 0.45; margin-bottom: 0.3rem;">$ whoami</div>
+        <div style="font-size: 17px; font-weight: 400; line-height: 1.35; margin-bottom: 0.5rem;">CS student. Linux tinkerer.<br>Embedded systems, Go, C++.</div>
+        <div style="font-size: 11px; opacity: 0.45;">$ ls ./projects</div>
+        <div style="font-size: 11px; margin-top: 3px; opacity: 0.75;">can-dashboard/  timegrapher/  marketplace/  ...</div>
+      </div>
+      <div class="mini-divider" style="border-top: 1px dashed rgba(42,40,37,0.2); background: none; height: 0; margin: 1rem 0;"></div>
+      <div class="mini-grid" style="gap: 6px;">
+        <div style="border: 0.5px dashed rgba(42,40,37,0.25); border-radius: 3px; padding: 6px; font-size: 9px; opacity: 0.6;">C++ / Go</div>
+        <div style="border: 0.5px dashed rgba(42,40,37,0.25); border-radius: 3px; padding: 6px; font-size: 9px; opacity: 0.6;">Embedded</div>
+        <div style="border: 0.5px dashed rgba(42,40,37,0.25); border-radius: 3px; padding: 6px; font-size: 9px; opacity: 0.6;">Linux</div>
+      </div>
+    </div>
+    <div class="dir-meta">
+      <div class="dir-label">Direction 3</div>
+      <div class="dir-name">Typewriter / vintage terminal</div>
+      <div class="dir-desc">Warm off-white. Pure monospace throughout. Dashed borders instead of solid. CLI metaphors in copy. This works specifically for systems/embedded CS students — it signals exactly what kind of developer you are without saying it. Risk: can feel gimmicky if overdone.</div>
+      <div class="swatches">
+        <div class="swatch" style="background: #F7F4EE;" title="Warm paper"></div>
+        <div class="swatch" style="background: #EDE9E0;" title="Aged paper"></div>
+        <div class="swatch" style="background: #2A2825;" title="Dark ink"></div>
+        <div class="swatch" style="background: #7A6F60;" title="Faded ink"></div>
+        <div class="swatch" style="background: #3D6B4F;" title="Green accent (optional)"></div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">IBM Plex Mono only</span>
+        <span class="tag">Dashed / dotted rules</span>
+        <span class="tag">CLI-style copy</span>
+        <span class="tag">No decoration</span>
+      </div>
+      <div class="links-row">
+        <a class="reflink" href="https://cassidoo.co" target="_blank">cassidoo.co <i class="ti ti-external-link" style="font-size:11px"></i></a>
+        <a class="reflink" href="https://100r.co" target="_blank">100r.co <i class="ti ti-external-link" style="font-size:11px"></i></a>
+        <a class="reflink" href="https://drewdevault.com" target="_blank">drewdevault.com <i class="ti ti-external-link" style="font-size:11px"></i></a>
+      </div>
+    </div>
+  </div>
+
+</div>
