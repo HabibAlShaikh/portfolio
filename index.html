@@ -24,6 +24,8 @@
 
             <p class="commands">$ ls ./projects</p>
             <p class="commands">ESP32-ELM327-WiFi-Logger/    log-analyzer/    ghos/    ...</p>
+
+            <p class="commands" style="margin-top: 1rem;">-- NORMAL -- (press : to run commands)</p>
         </div>
 
         <hr class="dashed-divider">
@@ -101,7 +103,7 @@
     <div id="vim-cmd-line"></div>
 
     <script>
-        const projects = [
+       const projects = [
             {
                 "name": "CLI_Log_Analyzer",
                 "description": "A CLI tool that parses and filters Linux log files.",
@@ -125,10 +127,10 @@
             }
         ];
 
+        // --- Project Rendering Logic ---
         const template = document.getElementById("projects");
         const container = document.getElementById("work");
-
-        const githubLink = container.querySelector(".nav-links");
+        const githubLink = container.querySelector(".nav-links"); 
 
         for (let i = 0; i < projects.length; i++) {
             const project = projects[i];
@@ -152,6 +154,7 @@
                 skillsContainer.appendChild(skillSpan);
             }
 
+            // Inserts the project right above the GitHub link
             container.insertBefore(clone, githubLink);
         }
 
@@ -168,6 +171,13 @@
         let lastKey = "";
 
         document.addEventListener('keydown', (e) => {
+            // Global Escape catch. Instantly resets the status bar and dismisses prompts/errors.
+            if (e.key === 'Escape') {
+                exitCommandMode();
+                awaitingConfirm = null;
+                return;
+            }
+
             if (isQuitState) {
                 if (e.key === 'u') {
                     restoreSession();
@@ -197,10 +207,7 @@
             }
 
             if (isCommandMode) {
-                if (e.key === 'Escape') {
-                    exitCommandMode();
-                } 
-                else if (e.key === 'Enter') {
+                if (e.key === 'Enter') {
                     executeCommand(commandBuffer);
                 } 
                 else if (e.key === 'Backspace') {
@@ -211,7 +218,7 @@
                         updateCmdDisplay();
                     }
                 } 
-                else if (e.key.length === 1) { 
+                else if (e.key.length === 1 && e.key !== 'Escape') { 
                     commandBuffer += e.key;
                     updateCmdDisplay();
                 }
@@ -241,15 +248,21 @@
 
         // --- Core Functions ---
 
+        function renderIdleState() {
+            cmdLine.innerHTML = `
+                <span class="vim-left">-- NORMAL --</span>
+                <span class="vim-right">:w download CV &nbsp;|&nbsp; :help</span>
+            `;
+        }
+
         function updateCmdDisplay() {
-            cmdLine.style.display = 'block';
             cmdLine.innerHTML = `:${commandBuffer}<span class="cursor-block"></span>`;
         }
 
         function exitCommandMode() {
             isCommandMode = false;
             commandBuffer = "";
-            cmdLine.style.display = 'none';
+            renderIdleState();
         }
 
         function askConfirmation(type) {
@@ -269,7 +282,6 @@
             isQuitState = false;
             quitScreen.style.display = 'none';
             portfolioContent.style.display = 'block';
-            cmdLine.style.display = 'block';
             cmdLine.innerHTML = "Session restored.";
             setTimeout(exitCommandMode, 1500);
         }
@@ -308,6 +320,11 @@
                 },
                 'q': () => askConfirmation('q'),
                 'wq': () => askConfirmation('wq'),
+                'help': () => {
+                    cmdLine.innerHTML = `:w download CV &nbsp;|&nbsp; :q quit &nbsp;|&nbsp; :about :work :home &nbsp;|&nbsp; gg/G scroll`;
+                    clearTimeout(errorTimeout);
+                    errorTimeout = setTimeout(exitCommandMode, 4000);
+                }
             };
 
             if (commandMap[cleanCmd]) {
@@ -318,6 +335,9 @@
                 errorTimeout = setTimeout(exitCommandMode, 3000);
             }
         }
+
+        // Initialize the idle status bar on page load
+        renderIdleState(); 
     </script>
 </body>
 </html>

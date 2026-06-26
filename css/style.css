@@ -228,7 +228,9 @@ nav {
 
 /* --- VIM COMMAND LINE --- */
 #vim-cmd-line {
-    display: none;
+    /* Changed from none to flex */
+    display: flex;
+    justify-content: space-between;
     position: fixed;
     bottom: 0;
     left: 0;
@@ -239,6 +241,17 @@ nav {
     font-size: 14px;
     font-weight: 500;
     z-index: 1000;
+    border-top: 1px dashed var(--ink-faint); /* Gives it a physical boundary */
+}
+
+/* Styles for the idle state text */
+.vim-left {
+    font-weight: bold;
+}
+
+.vim-right {
+    opacity: 0.5;
+    font-size: 12px;
 }
 
 .cursor-block {
