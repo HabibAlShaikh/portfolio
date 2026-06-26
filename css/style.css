@@ -8,7 +8,6 @@
   --accent:    #3D6B4F;
 }
 
-
 /* 1. Use a more-intuitive box-sizing model */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -30,30 +29,35 @@ body {
   background-color: var(--bg);
   font-family: 'IBM Plex Mono', monospace;
   color: var(--ink);
-  /* 4. Increase line-height */
   line-height: 1.5;
-  /* 5. Improve text rendering */
   -webkit-font-smoothing: antialiased;
-  padding: 3rem;
+  padding: 1.5rem; /* Mobile-first padding */
 }
 
-/* 6. Improve media defaults */
+/* Increases padding for screens wider than 600px */
+@media (min-width: 600px) {
+  body {
+    padding: 3rem;
+  }
+}
+
+/* 4. Improve media defaults */
 img, picture, video, canvas, svg {
   display: block;
   max-width: 100%;
 }
 
-/* 7. Inherit fonts for form controls */
+/* 5. Inherit fonts for form controls */
 input, button, textarea, select {
   font: inherit;
 }
 
-/* 8. Avoid text overflows */
+/* 6. Avoid text overflows */
 p, h1, h2, h3, h4, h5, h6 {
   overflow-wrap: break-word;
 }
 
-/* 9. Improve line wrapping */
+/* 7. Improve line wrapping */
 p {
   text-wrap: pretty;
 }
@@ -61,19 +65,11 @@ h1, h2, h3, h4, h5, h6 {
   text-wrap: balance;
 }
 
-/*
-  10. Create a root stacking context
-*/
-#root, #__next {
-  isolation: isolate;
-}
-
 ::selection {
-    background-color: var(--accent); /* Highlights text in your green accent */
-    color: var(--bg);                /* Changes the text color to the off-white background */
+    background-color: var(--accent);
+    color: var(--bg);                
 }
 
-/* For Firefox compatibility */
 ::-moz-selection {
     background-color: var(--accent);
     color: var(--bg);
@@ -83,7 +79,7 @@ h1, h2, h3, h4, h5, h6 {
     border: none;
     border-top: 1px dashed var(--ink-faint);
     margin: 2rem auto;
-    max-width: 800px; /* Matches your projects-container width */
+    max-width: 800px;
 }
 
 .my-name {
@@ -93,9 +89,8 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: 0.02em;
 }
 
-/* Adds the block cursor after your name */
 .my-name::after {
-    content: " █"; /* You can change this to "_" if you prefer an underscore */
+    content: " █";
     animation: blink 1.2s step-end infinite;
     opacity: 0.8;
 }
@@ -113,19 +108,6 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 18px;
 }
 
-.nav-links {
-  color: var(--accent);
-  font-size: 14px;
-
-  transition: opacity 0.2s ease-in-out;
-}
-.nav-links:hover {
-  opacity: 0.7;
-}
-.nav-links:visited {
-  opacity: 0.5;
-}
-
 .top-bar {
   display: flex;
   flex-direction: row;
@@ -136,11 +118,34 @@ h1, h2, h3, h4, h5, h6 {
 
 nav {
     display: flex;
-    gap: 1rem; /* Adds space between your [work] and [about] links */
+    gap: 1rem;
 }
 
-#projects-container {
-  /* margin: 0.8rem; */
+/* Unified Link Styles */
+.nav-links, .project-link {
+  color: var(--accent);
+  font-size: 14px;
+  text-decoration: none;
+  transition: opacity 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  
+  /* ADD THIS: Holds the 1px space so the page doesn't jump */
+  border-bottom: 1px dashed transparent; 
+}
+
+.nav-links:visited, .project-link:visited {
+  opacity: 0.5;
+}
+
+.nav-links:hover, .nav-links:focus, 
+.project-link:hover, .project-link:focus {
+    opacity: 0.7;
+    outline: none; 
+    
+    /* Now this just changes the color of the existing border */
+    border-bottom: 1px dashed var(--accent); 
+}
+
+#work {
   padding: 1rem;
   max-width: 800px;
   margin: 0 auto;
@@ -148,11 +153,10 @@ nav {
 
 .project {
   background-color: transparent;
-  margin: 0.5rem;
+  margin: 0.5rem 0;
   padding: 1rem;
   border: 1px dashed var(--ink-faint);
   border-radius: 0.3rem;
-
   transition: background-color 0.3s ease-in-out;
 }
 
@@ -203,39 +207,11 @@ nav {
   opacity: 0.75;
 }
 
-.project-link {
-  color: var(--accent);
-  font-size: 14px;
-
-  transition: opacity 0.2s ease-in-out;
-}
-.project-link:hover {
-  opacity: 0.7;
-}
-.project-link:visited {
-  opacity: 0.5;
-}
-
 /* --- ABOUT SECTION STYLES --- */
-
-.about-section {
+#about {
     max-width: 800px;
-    margin: 4rem auto 2rem auto; /* Centers it and adds spacing */
+    margin: 4rem auto 2rem auto; 
     padding: 0 1rem;
-}
-
-.section-heading {
-    color: var(--ink);
-    font-size: 14px;
-    font-weight: bold;
-    margin-bottom: 1.5rem;
-    opacity: 0.8;
-}
-
-.about-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
 }
 
 .about-text p {
@@ -250,57 +226,9 @@ nav {
     margin-bottom: 0;
 }
 
-/* The System Specs Box */
-.about-specs {
-    background-color: var(--bg-raised);
-    border: 1px dashed var(--ink-faint);
-    border-radius: 0.3rem;
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.spec-line {
-    display: flex;
-    font-size: 13px;
-}
-
-.spec-key {
-    color: var(--ink);
-    font-weight: bold;
-    width: 70px; /* Keeps the colons aligned */
-    opacity: 0.7;
-}
-
-.spec-val {
-    color: var(--ink-muted);
-}
-
-/* Optional: Make the active status stand out */
-.blink-status {
-    color: var(--accent);
-    font-weight: bold;
-}
-
-/* Desktop Layout: Puts text on left, specs on right */
-@media (min-width: 768px) {
-    .about-grid {
-        grid-template-columns: 2fr 1fr; 
-    }
-}
-
-.nav-links:hover, 
-.nav-links:focus, 
-.project-link:hover, 
-.project-link:focus {
-    opacity: 0.7;
-    outline: none; /* Removes the default browser outline */
-    border-bottom: 1px dashed var(--accent); /* Adds a thematic underline when focused/hovered */
-}
-
+/* --- VIM COMMAND LINE --- */
 #vim-cmd-line {
-    display: none; /* Hidden by default */
+    display: none;
     position: fixed;
     bottom: 0;
     left: 0;
@@ -313,7 +241,6 @@ nav {
     z-index: 1000;
 }
 
-/* Optional: Adding a blinking block cursor for that authentic terminal feel */
 .cursor-block {
     display: inline-block;
     width: 8px;
@@ -329,27 +256,25 @@ nav {
     50% { opacity: 0; }
 }
 
-#about {
-  max-width: 800px; margin: 0 auto; padding: 1rem;
-}
-
 /* --- TERMINAL FOOTER STYLES --- */
-
 #footer {
-  max-width: 800px; margin: 0 auto; padding: 1rem;
+  max-width: 800px; 
+  margin: 0 auto; 
+  padding: 1rem;
 }
 
 .footer-terminal {
+    max-width: 800px;
+    margin: 4rem auto 0 auto; /* 4rem top margin, auto sides, 0 bottom */
+    padding: 2rem 1rem;       /* 2rem top/bottom, 1rem left/right */
     border-top: 1px dashed var(--ink-faint);
-    padding: 2rem 0;
-    margin-top: 4rem; /* Adds breathing room from the main content */
 }
 
 .footer-terminal__grid {
     display: grid;
-    grid-template-columns: 1fr; /* Mobile-first */
+    grid-template-columns: 1fr;
     border: 1px dashed var(--ink-faint);
-    border-radius: 0.3rem; /* Matches your project cards */
+    border-radius: 0.3rem; 
 }
 
 .footer-terminal__column {
@@ -369,7 +294,7 @@ nav {
     opacity: 0.8;
 }
 
-/* Adds a subtle Unix path indicator to the headings */
+h2::before, 
 .footer-terminal__heading::before {
     content: "./";
     opacity: 0.5;
@@ -378,7 +303,7 @@ nav {
 .footer-terminal__links ul { 
     margin: 0; 
     padding: 0; 
-    list-style-type: none; /* Removes default bullets */
+    list-style-type: none; 
 }
 
 .footer-terminal__links li:not(:last-child) { 
@@ -386,14 +311,14 @@ nav {
 }
 
 .footer-terminal__links a {
-    color: var(--ink-muted); /* Using muted ink so it's not overwhelmingly green */
+    color: var(--ink-muted);
     font-size: 14px;
     text-decoration: none;
     transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 .footer-terminal__links a:hover {
-    color: var(--accent); /* Highlights in your green accent on hover */
+    color: var(--accent);
     opacity: 0.8;
 }
 
@@ -405,7 +330,6 @@ nav {
     opacity: 0.6;
 }
 
-/* Tablet Layout */
 @media (min-width: 768px) {
     .footer-terminal__grid {
         grid-template-columns: repeat(2, 1fr);
@@ -419,21 +343,5 @@ nav {
     }
     .footer-terminal__column:nth-child(-n+2) {
         border-bottom: 1px dashed var(--ink-faint);
-    }
-}
-
-/* Desktop Layout */
-@media (min-width: 992px) {
-    .footer-terminal__grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .footer-terminal__column:nth-child(-n+2) {
-        border-bottom: none;
-    }
-    .footer-terminal__column:nth-child(2n) {
-        border-right: 1px dashed var(--ink-faint);
-    }
-    .footer-terminal__column:last-child {
-        border-right: none;
     }
 }

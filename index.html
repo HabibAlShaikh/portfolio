@@ -10,12 +10,12 @@
 
 <body>
     <div id="portfolio-content">
-        <header id="sammary" class="top-bar">
-        <p class="my-name">Habib Al-Shaikh: ~$</p>
-        <nav>
-            <a class="nav-links" href="#work">[work]</a>
-            <a class="nav-links" href="#about">[about]</a>
-        </nav>
+        <header class="top-bar">
+            <p class="my-name">Habib Al-Shaikh: ~$</p>
+            <nav>
+                <a class="nav-links" href="#work">[work]</a>
+                <a class="nav-links" href="#about">[about]</a>
+            </nav>
         </header>
 
         <div>
@@ -28,8 +28,8 @@
 
         <hr class="dashed-divider">
 
-        <div id="projects-container" id="work">
-            <h2>./projects</h2>
+        <div id="work">
+            <h2>projects</h2>
             <template id="projects">
                 <div class="project">
                     <div class="project-top-bar">
@@ -41,13 +41,13 @@
                     <a class="project-link">[see-code]</a>
                 </div>
             </template>
-            <a class="nav-links">[see all on github]</a>
+            <a class="nav-links" href="https://github.com/HabibAlShaikh">[see all on github]</a>
         </div>
 
         <hr class="dashed-divider">
 
-        <div id="about" class="about-section">
-            <h2>./about</h2>
+        <div id="about">
+            <h2>about</h2>
             <div class="about-text">     
                 <p>
                     CS student at IAU, graduating 2027. I work close to the metal — C++, embedded systems, and anything that talks directly to hardware. Currently building toward a career in SCADA and industrial systems, ideally in the Eastern Province where that work actually happens.
@@ -55,9 +55,9 @@
                 <p>
                     My projects are tools I'd actually use: a CLI log analyzer built for real Linux workflows, and an ESP32 firmware that pulls live vehicle data over OBD-II. I hold a Cisco Networking Basics certification and I'm looking for a co-op or internship where I can get hands-on with industrial or embedded systems.
                 </p>
-                <P>
-                    Native Arabic, working English, and I run Linux daily.
-                </P>
+                <p>
+                    Native Arabic, working English, and I use arch BTW.
+                </p>
             </div>
         </div>
 
@@ -68,8 +68,8 @@
                         <h3 class="footer-terminal__heading">navigation</h3>
                         <nav class="footer-terminal__links" aria-label="Index">
                             <ul>
-                                <li><a href="#">[work]</a></li>
-                                <li><a href="#">[about]</a></li>
+                                <li><a href="#work">[work]</a></li>
+                                <li><a href="#about">[about]</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -78,9 +78,9 @@
                         <h3 class="footer-terminal__heading">network</h3>
                         <nav class="footer-terminal__links" aria-label="Network">
                             <ul>
-                                <li><a href="https://github.com/HabibAlShaikh" target="_blank">github</a></li>
-                                <li><a href="https://linkedin.com/in/habib-al-shaikh/">linkedin</a></li>
-                                <li><a href="habib.m.alshiakh@gmail.com">email</a></li>
+                                <li><a href="https://github.com/HabibAlShaikh" target="_blank">[github]</a></li>
+                                <li><a href="https://linkedin.com/in/habib-al-shaikh/" target="_blank">[linkedin]</a></li>
+                                <li><a href="mailto:habib.m.alshiakh@gmail.com">[email]</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -126,17 +126,18 @@
         ];
 
         const template = document.getElementById("projects");
-        const container = document.getElementById("projects-container");
+        const container = document.getElementById("work");
+
+        const githubLink = container.querySelector(".nav-links");
 
         for (let i = 0; i < projects.length; i++) {
             const project = projects[i];
-            
             const clone = template.content.cloneNode(true);
 
             const nameElement = clone.querySelector(".project-name");
-			nameElement.textContent = project.name;
+            nameElement.textContent = project.name;
 
-			const groupProject = clone.querySelector(".group-project");
+            const groupProject = clone.querySelector(".group-project");
             if (project["is-group-project"]) {
                 groupProject.textContent = "[group-project]";
             }
@@ -151,7 +152,7 @@
                 skillsContainer.appendChild(skillSpan);
             }
 
-            container.appendChild(clone);
+            container.insertBefore(clone, githubLink);
         }
 
         // --- Vim Environment Logic ---
@@ -161,26 +162,19 @@
 
         let isCommandMode = false;
         let isQuitState = false;
-        let awaitingConfirm = null; // Can be 'q' or 'wq'
+        let awaitingConfirm = null; 
         let commandBuffer = "";
         let errorTimeout;
-
-        // remember previous keystrokes
         let lastKey = "";
 
         document.addEventListener('keydown', (e) => {
-            // Prevent default scrolling for Space/Arrows if you want strict Vim feel
-            // (Optional, but helps prevent double-scrolling)
-            
-            // --- STATE 1: Quit / Session Closed ---
             if (isQuitState) {
                 if (e.key === 'u') {
                     restoreSession();
                 }
-                return; // Ignore all other keys
+                return;
             }
 
-            // --- STATE 2: Awaiting Y/N Confirmation ---
             if (awaitingConfirm) {
                 const key = e.key.toLowerCase();
                 if (key === 'y') {
@@ -191,10 +185,9 @@
                     setTimeout(exitCommandMode, 1000);
                 }
                 awaitingConfirm = null;
-                return; // Ignore other keys until answered
+                return; 
             }
 
-            // --- STATE 3: Enter Command Mode ---
             if (!isCommandMode && e.key === ':') {
                 isCommandMode = true;
                 commandBuffer = "";
@@ -203,7 +196,6 @@
                 return;
             }
 
-            // --- STATE 4: Inside Command Mode ---
             if (isCommandMode) {
                 if (e.key === 'Escape') {
                     exitCommandMode();
@@ -226,27 +218,23 @@
                 return;
             }
 
-            // --- STATE 5: Normal Mode (Vim Motions) ---
             if (!isCommandMode && !isQuitState && !awaitingConfirm) {
-                const scrollAmount = 100; // Pixels to jump per keystroke
+                const scrollAmount = 100;
                 if (e.key === 'j') window.scrollBy({ top: scrollAmount, behavior: 'smooth' });
                 if (e.key === 'k') window.scrollBy({ top: -scrollAmount, behavior: 'smooth' });
                 if (e.key === 'h') window.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
                 if (e.key === 'l') window.scrollBy({ left: scrollAmount, behavior: 'smooth' });
                 
-                // Handle 'gg' (Scroll to Top)
                 if (e.key === 'g' && lastKey === 'g') {
                     window.scrollTo({ top: 0, behavior: 'smooth' });
-                    lastKey = ''; // Reset it so typing 'ggg' doesn't trigger it twice
-                    return;       // Exit early
+                    lastKey = ''; 
+                    return;       
                 }
 
-                // Handle 'G' (Scroll to Bottom)
                 if (e.key === 'G') {
                     window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
                 }
 
-                // Always save the current key as the 'lastKey' for the next time a key is pressed
                 lastKey = e.key;
             }
         });
@@ -281,15 +269,12 @@
             isQuitState = false;
             quitScreen.style.display = 'none';
             portfolioContent.style.display = 'block';
-            
-            // Optional: Flash a quick "Session restored" message
             cmdLine.style.display = 'block';
             cmdLine.innerHTML = "Session restored.";
             setTimeout(exitCommandMode, 1500);
         }
 
         function downloadCV() {
-            // Creates an invisible link to trigger the download
             const link = document.createElement('a');
             link.href = 'assets/HabibAl-ShaikhCV.pdf'; 
             link.download = 'HabibAl-ShaikhCV.pdf';
@@ -316,13 +301,11 @@
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                     exitCommandMode();
                 },
-                // Write (Download CV)
                 'w': () => {
                     downloadCV();
                     cmdLine.innerHTML = `"assets/HabibAl-ShaikhCV.pdf" written`;
                     setTimeout(exitCommandMode, 2000);
                 },
-                // Quit commands intercept the flow to ask Y/N
                 'q': () => askConfirmation('q'),
                 'wq': () => askConfirmation('wq'),
             };
