@@ -210,7 +210,7 @@ nav {
 /* --- ABOUT SECTION STYLES --- */
 #about {
     max-width: 800px;
-    margin: 4rem auto 2rem auto; 
+    margin: 0 auto 2rem auto;
     padding: 0 1rem;
 }
 
