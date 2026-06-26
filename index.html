@@ -9,38 +9,46 @@
 </head>
 
 <body>
-
-    <header class="top-bar">
+    <div id="portfolio-content">
+        <header id="sammary" class="top-bar">
         <p class="my-name">Habib Al-Shaikh: ~$</p>
         <nav>
             <a class="nav-links" href="">[work]</a>
             <a class="nav-links" href="">[about]</a>
         </nav>
-    </header>
+        </header>
 
-    <div>
-        <p class="commands">$ whoami</p>
-        <p class="small-about">CS student. Embedded systems, SCADA, C++</p>
+        <div>
+            <p class="commands">$ whoami</p>
+            <p class="small-about">CS student. Embedded systems, SCADA, C++</p>
 
-        <p class="commands">$ ls ./projects</p>
-        <p class="commands">canbus-dashboard/    log-analyzer/    ghos/    ...</p>
-    </div>
+            <p class="commands">$ ls ./projects</p>
+            <p class="commands">ESP32-ELM327-WiFi-Logger/    log-analyzer/    ghos/    ...</p>
+        </div>
 
-    <hr class="dashed-divider">
+        <hr class="dashed-divider">
 
-    <div id="projects-container">
-        <template id="projects">
-            <div class="project">
-                <div class="project-top-bar">
-                    <h3 class="project-name"></h3>
-				    <p class="group-project"></p>
+        <div id="projects-container">
+            <template id="projects">
+                <div class="project">
+                    <div class="project-top-bar">
+                        <h3 class="project-name"></h3>
+                        <p class="group-project"></p>
+                    </div>
+                    <p class="project-description"></p>
+                    <div class="project-skills"></div>
+                    <a class="project-link">[see-code]</a>
                 </div>
-                <p class="project-description"></p>
-                <div class="project-skills"></div>
-				<a class="project-link">[see-code]</a>
-            </div>
-        </template>
+            </template>
+        </div>
     </div>
+
+    <div id="quit-screen" style="display: none; height: 100vh; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+        <p>[Process completed]</p>
+        <p style="opacity: 0.5; margin-top: 1rem; font-size: 14px;">Press 'u' to undo and return to session.</p>
+    </div>
+
+    <div id="vim-cmd-line"></div>
 
     <script>
         const projects = [
@@ -94,6 +102,188 @@
             }
 
             container.appendChild(clone);
+        }
+
+        // --- Vim Environment Logic ---
+        const cmdLine = document.getElementById('vim-cmd-line');
+        const portfolioContent = document.getElementById('portfolio-content');
+        const quitScreen = document.getElementById('quit-screen');
+
+        let isCommandMode = false;
+        let isQuitState = false;
+        let awaitingConfirm = null; // Can be 'q' or 'wq'
+        let commandBuffer = "";
+        let errorTimeout;
+
+        // remember previous keystrokes
+        let lastKey = "";
+
+        document.addEventListener('keydown', (e) => {
+            // Prevent default scrolling for Space/Arrows if you want strict Vim feel
+            // (Optional, but helps prevent double-scrolling)
+            
+            // --- STATE 1: Quit / Session Closed ---
+            if (isQuitState) {
+                if (e.key === 'u') {
+                    restoreSession();
+                }
+                return; // Ignore all other keys
+            }
+
+            // --- STATE 2: Awaiting Y/N Confirmation ---
+            if (awaitingConfirm) {
+                const key = e.key.toLowerCase();
+                if (key === 'y') {
+                    if (awaitingConfirm === 'wq') downloadCV();
+                    closeSession();
+                } else if (key === 'n') {
+                    cmdLine.innerHTML = "Command aborted.";
+                    setTimeout(exitCommandMode, 1000);
+                }
+                awaitingConfirm = null;
+                return; // Ignore other keys until answered
+            }
+
+            // --- STATE 3: Enter Command Mode ---
+            if (!isCommandMode && e.key === ':') {
+                isCommandMode = true;
+                commandBuffer = "";
+                updateCmdDisplay();
+                e.preventDefault();
+                return;
+            }
+
+            // --- STATE 4: Inside Command Mode ---
+            if (isCommandMode) {
+                if (e.key === 'Escape') {
+                    exitCommandMode();
+                } 
+                else if (e.key === 'Enter') {
+                    executeCommand(commandBuffer);
+                } 
+                else if (e.key === 'Backspace') {
+                    commandBuffer = commandBuffer.slice(0, -1);
+                    if (commandBuffer.length === 0 && e.key === 'Backspace') {
+                        exitCommandMode();
+                    } else {
+                        updateCmdDisplay();
+                    }
+                } 
+                else if (e.key.length === 1) { 
+                    commandBuffer += e.key;
+                    updateCmdDisplay();
+                }
+                return;
+            }
+
+            // --- STATE 5: Normal Mode (Vim Motions) ---
+            if (!isCommandMode && !isQuitState && !awaitingConfirm) {
+                const scrollAmount = 100; // Pixels to jump per keystroke
+                if (e.key === 'j') window.scrollBy({ top: scrollAmount, behavior: 'smooth' });
+                if (e.key === 'k') window.scrollBy({ top: -scrollAmount, behavior: 'smooth' });
+                if (e.key === 'h') window.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+                if (e.key === 'l') window.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                
+                // Handle 'gg' (Scroll to Top)
+                if (e.key === 'g' && lastKey === 'g') {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    lastKey = ''; // Reset it so typing 'ggg' doesn't trigger it twice
+                    return;       // Exit early
+                }
+
+                // Handle 'G' (Scroll to Bottom)
+                if (e.key === 'G') {
+                    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                }
+
+                // Always save the current key as the 'lastKey' for the next time a key is pressed
+                lastKey = e.key;
+            }
+        });
+
+        // --- Core Functions ---
+
+        function updateCmdDisplay() {
+            cmdLine.style.display = 'block';
+            cmdLine.innerHTML = `:${commandBuffer}<span class="cursor-block"></span>`;
+        }
+
+        function exitCommandMode() {
+            isCommandMode = false;
+            commandBuffer = "";
+            cmdLine.style.display = 'none';
+        }
+
+        function askConfirmation(type) {
+            awaitingConfirm = type;
+            const msg = type === 'wq' ? "Write CV and quit? (y/n)" : "Quit session? (y/n)";
+            cmdLine.innerHTML = `${msg} <span class="cursor-block"></span>`;
+        }
+
+        function closeSession() {
+            exitCommandMode();
+            isQuitState = true;
+            portfolioContent.style.display = 'none';
+            quitScreen.style.display = 'flex';
+        }
+
+        function restoreSession() {
+            isQuitState = false;
+            quitScreen.style.display = 'none';
+            portfolioContent.style.display = 'block';
+            
+            // Optional: Flash a quick "Session restored" message
+            cmdLine.style.display = 'block';
+            cmdLine.innerHTML = "Session restored.";
+            setTimeout(exitCommandMode, 1500);
+        }
+
+        function downloadCV() {
+            // Creates an invisible link to trigger the download
+            const link = document.createElement('a');
+            link.href = 'assets/HabibAl-ShaikhCV.pdf'; 
+            link.download = 'HabibAl-ShaikhCV.pdf';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function executeCommand(cmd) {
+            const cleanCmd = cmd.trim().toLowerCase();
+
+            const commandMap = {
+                'about': () => {
+                    const el = document.getElementById('about');
+                    if(el) el.scrollIntoView({ behavior: 'smooth' });
+                    exitCommandMode();
+                },
+                'work': () => {
+                    const el = document.getElementById('work');
+                    if(el) el.scrollIntoView({ behavior: 'smooth' });
+                    exitCommandMode();
+                },
+                'home': () => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    exitCommandMode();
+                },
+                // Write (Download CV)
+                'w': () => {
+                    downloadCV();
+                    cmdLine.innerHTML = `"assets/HabibAl-ShaikhCV.pdf" written`;
+                    setTimeout(exitCommandMode, 2000);
+                },
+                // Quit commands intercept the flow to ask Y/N
+                'q': () => askConfirmation('q'),
+                'wq': () => askConfirmation('wq'),
+            };
+
+            if (commandMap[cleanCmd]) {
+                commandMap[cleanCmd]();
+            } else {
+                cmdLine.innerHTML = `<span style="color: red;">E492: Not an editor command: ${cleanCmd}</span>`;
+                clearTimeout(errorTimeout);
+                errorTimeout = setTimeout(exitCommandMode, 3000);
+            }
         }
     </script>
 </body>

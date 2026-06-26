@@ -100,12 +100,6 @@ h1, h2, h3, h4, h5, h6 {
     opacity: 0.8;
 }
 
-/* The animation logic */
-@keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-}
-
 .commands {
   color: var(--ink);
   font-size: 12px;
@@ -229,4 +223,34 @@ nav {
     opacity: 0.7;
     outline: none; /* Removes the default browser outline */
     border-bottom: 1px dashed var(--accent); /* Adds a thematic underline when focused/hovered */
+}
+
+#vim-cmd-line {
+    display: none; /* Hidden by default */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--bg);
+    color: var(--ink);
+    padding: 0.2rem 1rem;
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 1000;
+}
+
+/* Optional: Adding a blinking block cursor for that authentic terminal feel */
+.cursor-block {
+    display: inline-block;
+    width: 8px;
+    height: 14px;
+    background-color: var(--ink);
+    vertical-align: middle;
+    margin-left: 2px;
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
 }
