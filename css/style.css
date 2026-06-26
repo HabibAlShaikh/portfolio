@@ -216,6 +216,80 @@ nav {
   opacity: 0.5;
 }
 
+/* --- ABOUT SECTION STYLES --- */
+
+.about-section {
+    max-width: 800px;
+    margin: 4rem auto 2rem auto; /* Centers it and adds spacing */
+    padding: 0 1rem;
+}
+
+.section-heading {
+    color: var(--ink);
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    opacity: 0.8;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+.about-text p {
+    color: var(--ink-muted);
+    font-size: 14px;
+    text-align: justify;
+    hyphens: auto;
+    margin-bottom: 1rem;
+}
+
+.about-text p:last-child {
+    margin-bottom: 0;
+}
+
+/* The System Specs Box */
+.about-specs {
+    background-color: var(--bg-raised);
+    border: 1px dashed var(--ink-faint);
+    border-radius: 0.3rem;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.spec-line {
+    display: flex;
+    font-size: 13px;
+}
+
+.spec-key {
+    color: var(--ink);
+    font-weight: bold;
+    width: 70px; /* Keeps the colons aligned */
+    opacity: 0.7;
+}
+
+.spec-val {
+    color: var(--ink-muted);
+}
+
+/* Optional: Make the active status stand out */
+.blink-status {
+    color: var(--accent);
+    font-weight: bold;
+}
+
+/* Desktop Layout: Puts text on left, specs on right */
+@media (min-width: 768px) {
+    .about-grid {
+        grid-template-columns: 2fr 1fr; 
+    }
+}
+
 .nav-links:hover, 
 .nav-links:focus, 
 .project-link:hover, 
@@ -253,4 +327,113 @@ nav {
 @keyframes blink {
     0%, 100% { opacity: 1; }
     50% { opacity: 0; }
+}
+
+#about {
+  max-width: 800px; margin: 0 auto; padding: 1rem;
+}
+
+/* --- TERMINAL FOOTER STYLES --- */
+
+#footer {
+  max-width: 800px; margin: 0 auto; padding: 1rem;
+}
+
+.footer-terminal {
+    border-top: 1px dashed var(--ink-faint);
+    padding: 2rem 0;
+    margin-top: 4rem; /* Adds breathing room from the main content */
+}
+
+.footer-terminal__grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Mobile-first */
+    border: 1px dashed var(--ink-faint);
+    border-radius: 0.3rem; /* Matches your project cards */
+}
+
+.footer-terminal__column {
+    padding: 1.5rem;
+    border-bottom: 1px dashed var(--ink-faint);
+}
+
+.footer-terminal__column:last-child {
+    border-bottom: none;
+}
+
+.footer-terminal__heading {
+    color: var(--ink);
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0 0 1rem 0;
+    opacity: 0.8;
+}
+
+/* Adds a subtle Unix path indicator to the headings */
+.footer-terminal__heading::before {
+    content: "./";
+    opacity: 0.5;
+}
+
+.footer-terminal__links ul { 
+    margin: 0; 
+    padding: 0; 
+    list-style-type: none; /* Removes default bullets */
+}
+
+.footer-terminal__links li:not(:last-child) { 
+    margin-bottom: 0.5rem; 
+}
+
+.footer-terminal__links a {
+    color: var(--ink-muted); /* Using muted ink so it's not overwhelmingly green */
+    font-size: 14px;
+    text-decoration: none;
+    transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.footer-terminal__links a:hover {
+    color: var(--accent); /* Highlights in your green accent on hover */
+    opacity: 0.8;
+}
+
+.footer-terminal__copyright {
+    margin-top: 2rem;
+    font-size: 12px;
+    color: var(--ink-muted);
+    text-align: center;
+    opacity: 0.6;
+}
+
+/* Tablet Layout */
+@media (min-width: 768px) {
+    .footer-terminal__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .footer-terminal__column {
+        border-bottom: none;
+        border-right: 1px dashed var(--ink-faint);
+    }
+    .footer-terminal__column:nth-child(2n) {
+        border-right: none;
+    }
+    .footer-terminal__column:nth-child(-n+2) {
+        border-bottom: 1px dashed var(--ink-faint);
+    }
+}
+
+/* Desktop Layout */
+@media (min-width: 992px) {
+    .footer-terminal__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .footer-terminal__column:nth-child(-n+2) {
+        border-bottom: none;
+    }
+    .footer-terminal__column:nth-child(2n) {
+        border-right: 1px dashed var(--ink-faint);
+    }
+    .footer-terminal__column:last-child {
+        border-right: none;
+    }
 }

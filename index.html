@@ -13,8 +13,8 @@
         <header id="sammary" class="top-bar">
         <p class="my-name">Habib Al-Shaikh: ~$</p>
         <nav>
-            <a class="nav-links" href="">[work]</a>
-            <a class="nav-links" href="">[about]</a>
+            <a class="nav-links" href="#work">[work]</a>
+            <a class="nav-links" href="#about">[about]</a>
         </nav>
         </header>
 
@@ -28,7 +28,8 @@
 
         <hr class="dashed-divider">
 
-        <div id="projects-container">
+        <div id="projects-container" id="work">
+            <h2>./projects</h2>
             <template id="projects">
                 <div class="project">
                     <div class="project-top-bar">
@@ -40,7 +41,56 @@
                     <a class="project-link">[see-code]</a>
                 </div>
             </template>
+            <a class="nav-links">[see all on github]</a>
         </div>
+
+        <hr class="dashed-divider">
+
+        <div id="about" class="about-section">
+            <h2>./about</h2>
+            <div class="about-text">     
+                <p>
+                    CS student at IAU, graduating 2027. I work close to the metal — C++, embedded systems, and anything that talks directly to hardware. Currently building toward a career in SCADA and industrial systems, ideally in the Eastern Province where that work actually happens.
+                </p>
+                <p>
+                    My projects are tools I'd actually use: a CLI log analyzer built for real Linux workflows, and an ESP32 firmware that pulls live vehicle data over OBD-II. I hold a Cisco Networking Basics certification and I'm looking for a co-op or internship where I can get hands-on with industrial or embedded systems.
+                </p>
+                <P>
+                    Native Arabic, working English, and I run Linux daily.
+                </P>
+            </div>
+        </div>
+
+        <footer class="footer-terminal" id="footer" role="contentinfo">
+            <div>
+                <div class="footer-terminal__grid">
+                    <div class="footer-terminal__column">
+                        <h3 class="footer-terminal__heading">navigation</h3>
+                        <nav class="footer-terminal__links" aria-label="Index">
+                            <ul>
+                                <li><a href="#">[work]</a></li>
+                                <li><a href="#">[about]</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                        
+                    <div class="footer-terminal__column">
+                        <h3 class="footer-terminal__heading">network</h3>
+                        <nav class="footer-terminal__links" aria-label="Network">
+                            <ul>
+                                <li><a href="https://github.com/HabibAlShaikh" target="_blank">github</a></li>
+                                <li><a href="https://linkedin.com/in/habib-al-shaikh/">linkedin</a></li>
+                                <li><a href="habib.m.alshiakh@gmail.com">email</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
+                <p class="footer-terminal__copyright">
+                    &copy; 2026 Habib Al-Shaikh // EOF
+                </p>
+            </div>
+        </footer>
     </div>
 
     <div id="quit-screen" style="display: none; height: 100vh; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
