@@ -18,7 +18,7 @@
             </nav>
         </header>
 
-        <div>
+        <div id="sammary">
             <p class="commands">$ whoami</p>
             <p class="small-about">CS student. Embedded systems, SCADA, C++</p>
 
@@ -32,6 +32,10 @@
 
         <div id="work">
             <h2>projects</h2>
+            
+            <!-- ADDED: Dedicated wrapper for the grid layout -->
+            <div id="project-list" class="projects-grid"></div>
+
             <template id="projects">
                 <div class="project">
                     <div class="project-top-bar">
@@ -43,7 +47,8 @@
                     <a class="project-link">[see-code]</a>
                 </div>
             </template>
-            <a class="nav-links" href="https://github.com/HabibAlShaikh">[see all on github]</a>
+            
+            <a class="nav-links" href="https://github.com/HabibAlShaikh" style="display: inline-block; margin-top: 1rem;">[see all on github]</a>
         </div>
 
         <hr class="dashed-divider">
@@ -83,6 +88,7 @@
                                 <li><a href="https://github.com/HabibAlShaikh" target="_blank">[github]</a></li>
                                 <li><a href="https://linkedin.com/in/habib-al-shaikh/" target="_blank">[linkedin]</a></li>
                                 <li><a href="mailto:habib.m.alshaikh@gmail.com">[email]</a></li>
+                                <li><a href="#" id="cv-download-btn">[download CV]</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -128,8 +134,10 @@
         ];
 
         // --- Project Rendering Logic ---
+
         const template = document.getElementById("projects");
-        const container = document.getElementById("work");
+        // Target the new grid container instead of the whole #work section
+        const container = document.getElementById("project-list");
         const githubLink = container.querySelector(".nav-links"); 
 
         for (let i = 0; i < projects.length; i++) {
@@ -154,7 +162,7 @@
                 skillsContainer.appendChild(skillSpan);
             }
 
-            // Inserts the project right above the GitHub link
+            // Simply append to the end of the new grid container
             container.insertBefore(clone, githubLink);
         }
 
@@ -244,6 +252,17 @@
 
                 lastKey = e.key;
             }
+        });
+
+        // --- Click Event for Download Button ---
+        document.getElementById('cv-download-btn').addEventListener('click', (e) => {
+            e.preventDefault(); // Prevents the browser from jumping to the top of the page
+            
+            downloadCV(); // Triggers your existing download function
+            
+            // Briefly shows the success message in the status bar
+            cmdLine.innerHTML = `"assets/HabibAl-ShaikhCV.pdf" written`;
+            setTimeout(renderIdleState, 2000); // Reverts to -- NORMAL -- after 2 seconds
         });
 
         // --- Core Functions ---

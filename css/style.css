@@ -145,19 +145,44 @@ nav {
     border-bottom: 1px dashed var(--accent); 
 }
 
+#sammary {
+  padding: 0.5rem;
+  max-width: 850px;
+  margin: 0 auto;
+}
+
 #work {
   padding: 1rem;
   max-width: 800px;
   margin: 0 auto;
 }
 
+/* --- PROJECTS GRID --- */
+.projects-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Mobile: 1 column stacked */
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+/* Desktop Layout: 3 columns side-by-side */
+@media (min-width: 768px) {
+    .projects-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
 .project {
   background-color: transparent;
-  margin: 0.5rem 0;
   padding: 1rem;
   border: 1px dashed var(--ink-faint);
   border-radius: 0.3rem;
   transition: background-color 0.3s ease-in-out;
+  
+  /* Makes the cards perfectly equal height */
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .project:hover {
@@ -187,6 +212,13 @@ nav {
   font-size: 14px;
   text-align: justify;
   hyphens: auto;
+
+  /* Truncates the text and adds "..." after 4 lines */
+  display: -webkit-box;
+  -webkit-line-clamp: 4; 
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .project-skills {
@@ -195,7 +227,10 @@ nav {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 1rem;
+  
+  /* Pushes the skills to the bottom so buttons align perfectly */
+  margin-top: auto; 
+  padding-top: 1rem;
   margin-bottom: 0.5rem;
 }
 
