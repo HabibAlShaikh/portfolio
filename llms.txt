@@ -1,0 +1,31 @@
+# Habib Al-Shaikh
+
+CS student at Imam Abdulrahman Bin Faisal University (IAU), graduating 2027. Specializing in embedded systems, SCADA, and low-level programming. Based in the Eastern Province, Saudi Arabia.
+
+## About
+
+I work close to the metal — C++, embedded systems, and anything that talks directly to hardware. Building toward a career in SCADA and industrial systems in the Eastern Province, where that work actually happens. Native Arabic speaker, working English.
+
+## Skills
+
+C/C++, Java, Python, Linux, MySQL, TCP/IP, Git/GitHub, Neovim, ESP32
+
+## Projects
+
+- CLI_Log_Analyzer: A CLI tool that parses and filters Linux log files. https://github.com/HabibAlShaikh/CLI_Log_Analyzer
+- ESP32-ELM327-WiFi-Logger: ESP32 firmware that connects to an ELM327 WiFi OBD-II adapter and logs real-time vehicle data to CSV over SD card. https://github.com/HabibAlShaikh/ESP32-ELM327-WiFi-Logger
+- ghos: A group project — secure e-commerce platform for digital game keys. https://github.com/mkm72/ghos
+
+## Certifications
+
+Cisco Networking Basics
+
+## Contact
+
+- GitHub: https://github.com/HabibAlShaikh
+- LinkedIn: https://linkedin.com/in/habib-al-shaikh
+- Email: habib.m.alshiakh@gmail.com
+
+## Availability
+
+Seeking co-op or internship in embedded systems, SCADA, or IoT. Prefer Eastern Province, Saudi Arabia. Open to remote.
