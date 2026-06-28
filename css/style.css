@@ -26,18 +26,15 @@
 }
 
 body {
-  background-color: var(--bg);
-  font-family: 'IBM Plex Mono', monospace;
-  color: var(--ink);
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-  padding: 1.5rem; /* Mobile-first padding */
+  /* ... existing rules ... */
+  padding: 1.5rem;
+  padding-bottom: 2.0rem; /* ADDED: Buffer to prevent footer from hiding under the vim bar */
 }
 
-/* Increases padding for screens wider than 600px */
 @media (min-width: 600px) {
   body {
     padding: 3rem;
+    padding-bottom: 2.5rem; /* ADDED: Scales the bottom buffer for desktop */
   }
 }
 
@@ -145,7 +142,7 @@ nav {
     border-bottom: 1px dashed var(--accent); 
 }
 
-#sammary {
+#header {
   padding: 0.5rem;
   max-width: 850px;
   margin: 0 auto;
@@ -305,11 +302,13 @@ nav {
 }
 
 /* --- TERMINAL FOOTER STYLES --- */
+/* DELETED THIS ENTIRELY:
 #footer {
   max-width: 800px; 
   margin: 0 auto; 
   padding: 1rem;
 }
+*/
 
 .footer-terminal {
     max-width: 800px;
@@ -422,9 +421,4 @@ h2::before,
       rgba(42, 40, 37, 0.02)
   );
   background-size: 100% 3px; /* Adjust 4px for thicker/thinner lines */
-}
-
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
 }
