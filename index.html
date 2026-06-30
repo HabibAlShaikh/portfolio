@@ -6,11 +6,11 @@
     <title>Portfolio</title>
 
     <!-- Primary Meta Tags -->
-    <meta name="description" content="CS student at IAU">
+    <meta name="description" content="Embedded systems & industrial computing — C++, SCADA, IoT">
 
     <!-- Open Graph (For link previews on Discord, LinkedIn, Twitter, etc.) -->
     <meta property="og:title" content="Habib Al-Shaikh">
-    <meta property="og:description" content="CS student at IAU. Embedded systems, SCADA, C++">
+    <meta property="og:description" content="Embedded systems & industrial computing — C++, SCADA, IoT">
     <meta property="og:url" content="https://habibalshaikh.dev/">
 
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
@@ -33,7 +33,7 @@
 
         <div id="header">
             <p class="commands">$ whoami</p>
-            <p class="small-about">CS student. Embedded systems, SCADA, C++</p>
+            <p class="small-about">Embedded systems & SCADA — C++</p>
 
             <p class="commands">$ ls ./projects</p>
             <p class="commands">ESP32-ELM327-WiFi-Logger/    log-analyzer/    ghos/    ...</p>
@@ -70,14 +70,14 @@
             <h2>about</h2>
             <div class="about-text">     
                 <p>
-                    CS student at IAU, graduating 2027. I work close to the metal — C++, embedded systems, and anything that talks directly to hardware. Currently building toward a career in SCADA and industrial systems, ideally in the Eastern Province where that work actually happens.
+                    I work close to the metal — C++, embedded systems, and anything that talks directly to hardware. Building toward a career in SCADA and industrial systems. Currently at IAU, graduating 2027.
                 </p>
                 <p>
                     My projects are tools I'd actually use: a CLI log analyzer built for real Linux workflows, and an ESP32 firmware that pulls live vehicle data over OBD-II. I hold a Cisco Networking Basics certification and I'm looking for a co-op or internship where I can get hands-on with industrial or embedded systems.
                 </p>
-                <p>
+                <!-- <p>
                     Native Arabic, working English, and I use arch BTW.
-                </p>
+                </p> -->
             </div>
         </div>
 
@@ -125,21 +125,21 @@
        const projects = [
             {
                 "name": "CLI_Log_Analyzer",
-                "description": "A CLI tool that parses and filters Linux log files.",
+                "description": "Parses and filters Linux log files by level and timestamp range, handling inconsistent formats — tested against both synthetic logs and real-world output like archinstall's DEBUG logs. Built in C++ with zero dependencies; matches one-second-precision time windows across differently-formatted timestamps without choking.",
                 "link": "https://github.com/HabibAlShaikh/CLI_Log_Analyzer",
                 "is-group-project": false,
                 "skills": ["C/C++", "GitHub", "OS", "Linux"]
             },
             {
                 "name": "ghos",
-                "description": "GHOS is a modern, secure, and feature-rich e-commerce platform dedicated to digital game keys. Built with a focus on security and user experience, it provides a seamless flow from game discovery to secure checkout.",
+                "description": "This is honest and still has a real hard part — merging two APIs with different schemas/identifiers into one consistent catalog isn't nothing, and it's defensible if someone asks you to walk through it. Don't let it get buried under the security-feature bullet list that was in the original GitHub README; that stuff isn't yours to claim",
                 "link": "https://github.com/mkm72/ghos",
                 "is-group-project": true,
                 "skills": ["HTML/CSS", "php", "JavaScript", "SQL", "GitHub"]
             },
             {
                 "name": "ESP32-ELM327-WiFi-Logger",
-                "description": "ESP32 firmware that connects to an ELM327 WiFi OBD-II adapter and logs real-time vehicle data to a CSV file on an SD card.",
+                "description": "ESP32 firmware streaming live OBD-II data from a WiFi ELM327 adapter to CSV on an SD card. Cheap ELM327 clones cap out at 3–5 PID responses/sec and drop the TCP link randomly — handled with auto-reconnect, NO-DATA skip-without-crash, and a lower poll rate on slow-changing PIDs (coolant temp) to keep RPM/speed/throttle inside the timing budget.",
                 "link": "https://github.com/HabibAlShaikh/ESP32-ELM327-WiFi-Logger",
                 "is-group-project": false,
                 "skills": ["C/C++", "Github", "TCP/IP", "ESP32", "Embedded Systems","IoT"]
@@ -274,7 +274,7 @@
             downloadCV(); // Triggers your existing download function
             
             // Briefly shows the success message in the status bar
-            cmdLine.innerHTML = `"assets/HabibAl-ShaikhCV.pdf" written`;
+            cmdLine.innerHTML = `"assets/Habib_Al-ShaikhCV.pdf" written`;
             setTimeout(renderIdleState, 2000); // Reverts to -- NORMAL -- after 2 seconds
         });
 
@@ -320,8 +320,8 @@
 
         function downloadCV() {
             const link = document.createElement('a');
-            link.href = 'assets/HabibAl-ShaikhCV.pdf'; 
-            link.download = 'HabibAl-ShaikhCV.pdf';
+            link.href = 'assets/Habib_Al-ShaikhCV.pdf'; 
+            link.download = 'Habib_Al-ShaikhCV.pdf';
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -347,7 +347,7 @@
                 },
                 'w': () => {
                     downloadCV();
-                    cmdLine.innerHTML = `"assets/HabibAl-ShaikhCV.pdf" written`;
+                    cmdLine.innerHTML = `"assets/Habib_Al-ShaikhCV.pdf" written`;
                     setTimeout(exitCommandMode, 2000);
                 },
                 'q': () => askConfirmation('q'),
